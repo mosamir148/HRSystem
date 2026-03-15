@@ -1,0 +1,55 @@
+## Ignore Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build folders
+bin/
+obj/
+Debug/
+Release/
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## Logs
+*.log
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## NuGet
+*.nupkg
+packages/
+.nuget/
+
+## Publish
+publish/
+*.publishsettings
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## IIS Express
+/.vs/config/applicationhost.config
+
+## Entity Framework
+*.edmx.diagram
+
+## Test Results
+TestResults/
+*.trx
+
+## dotCover
+*.dotCover
+
+## Resharper
+_ReSharper*/
+*.ReSharper
+
+## Azure
+*.azurePubxml
