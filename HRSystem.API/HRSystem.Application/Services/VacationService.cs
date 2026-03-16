@@ -29,27 +29,23 @@ namespace HRSystem.Application.Services
                 _mapper.Map<IEnumerable<VacationResponseDto>>(vacations));
         }
 
-        // ── Create ───────────────────────────────────────────
         public async Task<Result<VacationResponseDto>> CreateAsync(int employeeId, VacationCreateDto dto)
         {
-            // هل الموظف موجود؟
             var emp = await _unitOfWork.Employees.GetByIdAsync(employeeId);
             if (emp == null)
                 return Result<VacationResponseDto>.NotFound("الموظف غير موجود");
 
-            // المدة بين 1 و 30
             if (dto.DurationDays < 1 || dto.DurationDays > 30)
                 return Result<VacationResponseDto>.Failure("المدة لا تقل عن يوم ولا تزيد عن 30 يوماً");
 
-            var startDate = dto.StartDate;
+            // تحويل string لـ DateOnly
+            var startDate = DateOnly.Parse(dto.StartDate);
             var endDate = startDate.AddDays(dto.DurationDays - 1);
 
-            // هل فيه تداخل مع إجازة موجودة؟
             var hasOverlap = await _unitOfWork.Vacations.HasOverlapAsync(employeeId, startDate, endDate);
             if (hasOverlap)
                 return Result<VacationResponseDto>.Failure("تداخل مع إجازة موجودة في نفس الفترة");
 
-            // هل تعدى 30 يوم سنوياً لنفس النوع؟
             var usedDays = await _unitOfWork.Vacations.GetUsedDaysByTypeAsync(
                 employeeId, dto.VacationType, startDate.Year);
 
@@ -57,7 +53,6 @@ namespace HRSystem.Application.Services
                 return Result<VacationResponseDto>.Failure(
                     $"تجاوز الحد السنوي لإجازة '{dto.VacationType}' — المتبقي {30 - usedDays} يوم فقط");
 
-            // حفظ
             var vacation = new Vacation
             {
                 EmployeeId = employeeId,
@@ -69,6 +64,7 @@ namespace HRSystem.Application.Services
 
             await _unitOfWork.Vacations.AddAsync(vacation);
             await _unitOfWork.SaveChangesAsync();
+
             return Result<VacationResponseDto>.Success(
                 _mapper.Map<VacationResponseDto>(vacation), 201);
         }

@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HRSystem.Application.DTOs.Vacation
+﻿namespace HRSystem.Application.DTOs.Vacation
 {
     public class VacationCreateDto
     {
-       
-            public string VacationType { get; set; } = string.Empty;
-            public DateOnly StartDate { get; set; }
-            public int DurationDays { get; set; }
-        
+        public string VacationType { get; set; } = string.Empty;
+        public string StartDate { get; set; } = string.Empty;
+        public int DurationDays { get; set; }
     }
 }

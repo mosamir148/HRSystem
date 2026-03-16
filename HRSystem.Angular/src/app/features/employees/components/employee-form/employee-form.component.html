@@ -1,0 +1,51 @@
+<div class="card mb-4">
+  <div class="card-header">
+    <span>👤</span> بيانات الموظف
+  </div>
+  <div class="card-body">
+
+    <!-- Alert -->
+    <div *ngIf="alertMsg" class="alert"
+         [ngClass]="alertType === 'success' ? 'alert-success' : 'alert-danger'">
+      {{ alertMsg }}
+    </div>
+
+    <!-- Form -->
+    <div class="form-grid">
+      <div class="form-group">
+        <label>رقم الموظف *</label>
+        <input class="form-control"
+               [(ngModel)]="empCode"
+               [disabled]="!!selectedEmployee"
+               placeholder="EMP001">
+      </div>
+      <div class="form-group">
+        <label>الاسم الكامل *</label>
+        <input class="form-control"
+               [(ngModel)]="empName"
+               placeholder="أدخل الاسم">
+      </div>
+      <div class="form-group">
+        <label>تاريخ الميلاد</label>
+        <input type="date" class="form-control" [(ngModel)]="empBirth">
+      </div>
+      <div class="form-group">
+        <label>المؤهل الدراسي</label>
+        <select class="form-control" [(ngModel)]="empQual">
+          <option value="">-- اختر --</option>
+          <option *ngFor="let q of qualifications" [value]="q">{{ q }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="action-bar">
+      <button class="btn btn-primary"  (click)="save()">💾 حفظ</button>
+      <button class="btn btn-warning"  (click)="update()">✏️ تعديل</button>
+      <button class="btn btn-danger"   (click)="delete()">🗑️ حذف</button>
+      <button class="btn btn-accent"   (click)="openVacationsModal()">📋 الإجازات</button>
+      <button class="btn btn-outline"  (click)="clear()" style="margin-right:auto">🔄 مسح</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="hr-container">
+
+  <!-- Form -->
+  <app-employee-form
+    [selectedEmployee]="selectedEmployee"
+    (employeeSaved)="onEmployeeSaved()"
+    (openVacations)="onOpenVacations($event)">
+  </app-employee-form>
+
+  <!-- Grid -->
+  <app-employee-grid
+    [employees]="employees"
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    (employeeSelected)="onEmployeeSelected($event)"
+    (pageChanged)="onPageChange($event)"
+    (openVacations)="onOpenVacations($event)">
+  </app-employee-grid>
+
+  <!-- Vacation Modal -->
+  <app-vacation-modal
+    *ngIf="showVacationModal && selectedEmployee"
+    [employee]="selectedEmployee"
+    (closed)="onVacationModalClosed()">
+  </app-vacation-modal>
+
+</div>

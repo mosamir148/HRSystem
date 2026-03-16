@@ -1,0 +1,89 @@
+<div class="modal-overlay" (click)="close()">
+  <div class="modal" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <span>📋 إجازات: {{ employee.fullName }} ({{ employee.employeeCode }})</span>
+      <button class="modal-close" (click)="close()">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Alert -->
+      <div *ngIf="alertMsg" class="alert"
+           [ngClass]="alertType === 'success' ? 'alert-success' : 'alert-danger'">
+        {{ alertMsg }}
+      </div>
+
+      <!-- Add Vacation Form -->
+      <div class="section-title">➕ إضافة إجازة جديدة</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>نوع الإجازة *</label>
+          <select class="form-control" [(ngModel)]="newType">
+            <option value="">-- اختر --</option>
+            <option *ngFor="let t of vacationTypes" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>تاريخ البداية *</label>
+          <input type="date" class="form-control" [(ngModel)]="newStart">
+        </div>
+        <div class="form-group">
+          <label>المدة (أيام) *</label>
+          <input type="number" class="form-control"
+                 [(ngModel)]="newDays" min="1" max="30">
+        </div>
+      </div>
+      <button class="btn btn-success" style="margin-top:12px"
+              (click)="addVacation()">
+        💾 حفظ الإجازة
+      </button>
+
+      <div class="sep"></div>
+
+      <!-- Vacations Table -->
+      <div class="section-title">📋 سجل الإجازات</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>نوع الإجازة</th>
+              <th>تاريخ البداية</th>
+              <th>تاريخ النهاية</th>
+              <th>المدة</th>
+              <th>حذف</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="vacations.length === 0">
+              <td colspan="6" class="empty-cell">لا توجد إجازات</td>
+            </tr>
+            <tr *ngFor="let v of vacations; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td><span class="badge badge-blue">{{ v.vacationType }}</span></td>
+              <td>{{ v.startDate }}</td>
+              <td>{{ v.endDate }}</td>
+              <td>{{ v.durationDays }} يوم</td>
+              <td>
+                <button class="btn btn-sm btn-danger"
+                        (click)="deleteVacation(v.vacationId)">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Total -->
+      <div style="margin-top:14px; text-align:left">
+        <strong>إجمالي أيام الإجازات:
+          <span style="color:#e8a020">{{ totalDays }}</span> يوم
+        </strong>
+      </div>
+
+    </div>
+  </div>
+</div>

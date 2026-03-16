@@ -1,5 +1,5 @@
 ﻿using HRSystem.Application.Interfaces;
-using HRSystem.Application.Mapper;
+using HRSystem.Application.Mappings;
 using HRSystem.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +15,7 @@ namespace HRSystem.Application
 
             // Services
             services.AddScoped<IEmployeeService, EmployeeService>();
-            //  services.AddScoped<IVacationService, VacationService>();
+            services.AddScoped<IVacationService, VacationService>();
 
             return services;
         }

@@ -1,6 +1,5 @@
+﻿using HRSystem.Application;
 using HRSystem.Infrastructure;
-using HRSystem.Application;
-using Microsoft.EntityFrameworkCore;
 
 namespace HRSystem.API
 {
@@ -14,7 +13,7 @@ namespace HRSystem.API
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            
+
 
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -25,7 +24,7 @@ namespace HRSystem.API
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular", policy =>
-                    policy.WithOrigins("http://localhost:4200")
+                    policy.AllowAnyOrigin()
                           .AllowAnyMethod()
                           .AllowAnyHeader());
             });

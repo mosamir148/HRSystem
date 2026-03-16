@@ -1,0 +1,78 @@
+<div class="card">
+  <div class="card-header">
+    <span>📊</span> قائمة الموظفين
+    <span class="badge badge-blue" style="margin-right:auto">
+      {{ employees.length }} موظف
+    </span>
+  </div>
+  <div class="card-body">
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>رقم الموظف</th>
+            <th>الاسم</th>
+            <th>تاريخ الميلاد</th>
+            <th>المؤهل</th>
+            <th>إجمالي الإجازات</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="employees.length === 0">
+            <td colspan="7" class="empty-cell">لا يوجد موظفون</td>
+          </tr>
+          <tr *ngFor="let emp of employees; let i = index"
+              [class.selected]="selectedId === emp.employeeId"
+              (click)="selectEmployee(emp)">
+            <td>{{ i + 1 }}</td>
+            <td><strong>{{ emp.employeeCode }}</strong></td>
+            <td>{{ emp.fullName }}</td>
+            <td>{{ emp.birthDate ?? '—' }}</td>
+            <td>
+              <span *ngIf="emp.qualification" class="badge badge-blue">
+                {{ emp.qualification }}
+              </span>
+              <span *ngIf="!emp.qualification">—</span>
+            </td>
+            <td>
+              <span class="badge"
+                [ngClass]="{
+                  'badge-red':   emp.totalVacationDays > 20,
+                  'badge-amber': emp.totalVacationDays > 10 && emp.totalVacationDays <= 20,
+                  'badge-green': emp.totalVacationDays <= 10
+                }">
+                {{ emp.totalVacationDays }} يوم
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-accent"
+                (click)="$event.stopPropagation(); openVacations.emit(emp)">
+                📋 إجازات
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button class="page-btn"
+              [disabled]="currentPage === 1"
+              (click)="goPage(currentPage - 1)">›</button>
+      <button *ngFor="let p of pages"
+              class="page-btn"
+              [class.active]="p === currentPage"
+              (click)="goPage(p)">{{ p }}</button>
+      <button class="page-btn"
+              [disabled]="currentPage === totalPages"
+              (click)="goPage(currentPage + 1)">‹</button>
+      <span class="page-info">صفحة {{ currentPage }} من {{ totalPages }}</span>
+    </div>
+
+  </div>
+</div>
