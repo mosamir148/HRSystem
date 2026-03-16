@@ -4,9 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRSystem.Application.DTOs
+namespace HRSystem.Application.DTOs.Employee
 {
-    internal class EmployeeResponseDto
-    {
-    }
+  
+        public class EmployeeResponseDto
+        {
+            public int EmployeeId { get; set; }
+            public string EmployeeCode { get; set; } = string.Empty;
+            public string FullName { get; set; } = string.Empty;
+            public DateOnly? BirthDate { get; set; }
+            public string? Qualification { get; set; }
+            public int TotalVacationDays { get; set; }
+        }
+    
 }

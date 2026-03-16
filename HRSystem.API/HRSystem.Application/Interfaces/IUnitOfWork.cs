@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace HRSystem.Application.Interfaces
 {
-    internal class IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        IEmployeeRepository Employees { get; }
+        IVacationRepository Vacations { get; }
+        Task<int> SaveChangesAsync();
     }
 }

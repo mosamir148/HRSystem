@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HRSystem.Application.Common;
+using HRSystem.Application.DTOs.Vacation;
 
 namespace HRSystem.Application.Interfaces
 {
-    internal interface IVacationService
+    public interface IVacationService
     {
+        Task<Result<IEnumerable<VacationResponseDto>>> GetByEmployeeAsync(int employeeId);
+        Task<Result<VacationResponseDto>> CreateAsync(int employeeId, VacationCreateDto dto);
+        Task<Result<bool>> DeleteAsync(int employeeId, int vacationId);
     }
 }

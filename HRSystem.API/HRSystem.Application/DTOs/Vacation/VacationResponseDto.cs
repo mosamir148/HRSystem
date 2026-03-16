@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace HRSystem.Application.DTOs.Vacation
 {
-    internal class VacationResponseDto
+    public class VacationResponseDto
     {
+        public int VacationId { get; set; }
+        public int EmployeeId { get; set; }
+        public string VacationType { get; set; } = string.Empty;
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
+        public int DurationDays { get; set; }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HRSystem.Application.Common;
+using HRSystem.Application.DTOs.Employee;
 
-namespace HRSystem.Application.Interfaces
+public interface IEmployeeService
 {
-    internal interface IEmployeeService
-    {
-    }
+    Task<Result<IEnumerable<EmployeeResponseDto>>> GetAllAsync(int page, int pageSize);
+    Task<Result<EmployeeResponseDto?>> GetByIdAsync(int id);
+    Task<Result<EmployeeResponseDto>> CreateAsync(EmployeeCreateDto dto);
+    Task<Result<EmployeeResponseDto>> UpdateAsync(int id, EmployeeUpdateDto dto);
+    Task<Result<bool>> DeleteAsync(int id);
+    Task<Result<int>> GetTotalCountAsync();
 }
