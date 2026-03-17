@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+buildCommand = "dotnet publish HRSystem.API/HRSystem.API/HRSystem.API.csproj -c Release -o /app/publish"
+
+[deploy]
+startCommand = "dotnet /app/publish/HRSystem.API.dll"
+restartPolicyType = "on_failure"
