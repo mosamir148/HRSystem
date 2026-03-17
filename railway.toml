@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "dotnet publish HRSystem.API/HRSystem.API/HRSystem.API.csproj -c Release -o /app/publish"
+buildCommand = "dotnet publish HRSystem.API/HRSystem.API/HRSystem.API.csproj -c Release -o /app/publish /p:UseAppHost=false"
 
 [deploy]
 startCommand = "dotnet /app/publish/HRSystem.API.dll"
