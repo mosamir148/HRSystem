@@ -105,6 +105,18 @@ export class EmployeeFormComponent implements OnChanges {
     this.selectedEmployee = null;
   }
 
+
+
+  printEmployee() {
+  if (!this.selectedEmployee) 
+    return this.showAlert('الرجاء تحديد موظف أولاً');
+  
+  window.open(
+    `https://localhost:7091/api/reports/employee/${this.selectedEmployee.employeeId}`,
+    '_blank'
+  );
+}
+
   showAlert(msg: string, type = 'danger') {
     this.alertMsg  = msg;
     this.alertType = type;
